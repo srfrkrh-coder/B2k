@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>بازی — اسم‌فامیل کهکشانی</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css">
+</head>
+<body class="bg">
+<header class="top">
+  <div class="brand">اسم‌فامیل کهکشانی</div>
+  <div class="user">سلام، <strong id="me"></strong></div>
+</header>
+
+<main class="layout">
+  <section class="left">
+    <div class="panel game-panel">
+      <div class="letter" id="letter">?</div>
+      <div class="timer" id="timer">01:00</div>
+      <div class="inputs">
+        <input id="name" placeholder="نام">
+        <input id="lastname" placeholder="نام خانوادگی">
+        <input id="city" placeholder="شهر">
+        <input id="country" placeholder="کشور">
+        <input id="animal" placeholder="حیوان">
+        <input id="color" placeholder="رنگ">
+        <input id="object" placeholder="شیء">
+      </div>
+      <div class="row">
+        <button id="start" class="btn">شروع / شروع مجدد</button>
+        <button id="submit" class="btn ghost">ثبت پاسخ‌ها</button>
+      </div>
+      <div id="result" class="small"></div>
+    </div>
+
+    <div class="panel chat-panel">
+      <div id="chatbox" class="chatbox"></div>
+      <div class="composer">
+        <input id="chatinput" placeholder="پیام...">
+        <button id="sendchat" class="btn">ارسال</button>
+      </div>
+    </div>
+  </section>
+
+  <aside class="right">
+    <div class="panel leaderboard">
+      <h3>جدول امتیازات</h3>
+      <div id="leaderboard" class="leaderboard-list"></div>
+      <div class="cta">هدف بعدی: بالا رفتن در جدول — رتبهٔ اول منتظر توست!</div>
+    </div>
+  </aside>
+</main>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/static/client.js"></script>
+<script>window.username = "{{ username|e }}";</script>
+</body>
+</html>

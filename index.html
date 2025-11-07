@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ورود — اسم‌فامیل کهکشانی</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css">
+</head>
+<body class="bg">
+  <main class="center">
+    <div class="card">
+      <h1>اسم‌فامیل — کهکشان</h1>
+      <p class="lead">نام کاربری خود را وارد کنید تا بازی و چت را شروع کنید.</p>
+      <div id="err" class="error" style="display:none"></div>
+      <input id="username" placeholder="نام کاربری..." maxlength="18" autofocus />
+      <div class="row">
+        <button id="enterBtn" class="btn">ورود به بازی</button>
+        <a class="ghost" href="/admin">پنل مدیر</a>
+      </div>
+    </div>
+  </main>
+
+<script>
+document.getElementById('enterBtn').onclick = async ()=>{
+  const u = document.getElementById('username').value.trim();
+  const err = document.getElementById('err'); err.style.display='none';
+  if(!u){ err.textContent='نام لازم است.'; err.style.display='block'; return;}
+  try {
+    const res = await fetch('/join',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({username:u})});
+    const j = await res.json();
+    if(res.ok && j.ok) location.href = '/game?username=' + encodeURIComponent(u);
+    else { err.textContent = j.error || 'خطا در ورود'; err.style.display='block'; }
+  } catch(e){ err.textContent = 'خطا: ' + e.message; err.style.display='block'; }
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>پنل مدیر</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="bg">
+<div class="admin-wrap">
+  {% if not is_admin %}
+  <div class="card small">
+    <h2>ورود مدیر</h2>
+    <input id="auser" placeholder="نام کاربری">
+    <input id="apass" placeholder="رمز عبور" type="password">
+    <button id="alogin" class="btn">ورود</button>
+    <div id="aerr" class="error" style="display:none"></div>
+  </div>
+  {% else %}
+  <div class="card small">
+    <h2>پنل مدیریت</h2>
+    <div class="row">
+      <input id="target" placeholder="نام کاربری هدف">
+      <button id="block" class="btn">مسدود</button>
+      <button id="unblock" class="btn ghost">آزادسازی</button>
+    </div>
+    <div class="row">
+      <button id="toggle" class="btn">قفل/باز کردن چت</button>
+    </div>
+    <div id="ainfo" class="small"></div>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+{% if not is_admin %}
+document.getElementById('alogin').onclick = async ()=>{
+  const user=document.getElementById('auser').value, pass=document.getElementById('apass').value;
+  const res = await fetch('/admin-login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:user,password:pass})});
+  const j=await res.json();
+  if(j.ok) location.reload(); else {document.getElementById('aerr').textContent=j.message; document.getElementById('aerr').style.display='block'}
+};
+{% else %}
+document.getElementById('block').onclick = async ()=>{
+  const t=document.getElementById('target').value.trim(); if(!t) return alert('نام لازم است');
+  await fetch('/admin/block',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:t})});
+  document.getElementById('ainfo').textContent='انجام شد';
+};
+document.getElementById('unblock').onclick = async ()=>{
+  const t=document.getElementById('target').value.trim(); if(!t) return alert('نام لازم است');
+  await fetch('/admin/unblock',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:t})});
+  document.getElementById('ainfo').textContent='آزادسازی انجام شد';
+};
+document.getElementById('toggle').onclick = async ()=>{
+  const r = await fetch('/admin/toggle_chat',{method:'POST'}); const j=await r.json();
+  document.getElementById('ainfo').textContent = 'چت اکنون: ' + (j.chat_open? 'باز' : 'بسته');
+};
+{% endif %}
+</script>
+</body>
+</html>

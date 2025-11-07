@@ -1,0 +1,60 @@
+/* clean modern galaxy + Vazir font */
+:root{
+  --bg1:#04040a; --card:#0f1724; --accent1:#6a11cb; --accent2:#2575fc;
+  --muted:#9aa3c7;
+  font-family:"Vazir",sans-serif;
+}
+body.bg{ margin:0; min-height:100vh; background:linear-gradient(180deg,#010116 0,#061031 60%); color:#e6eef9; }
+
+/* subtle moving stars */
+body.bg::before{
+  content:""; position:fixed; inset:0; background-image: radial-gradient(#ffffff05 1px,#0000 2px);
+  background-size: 6px 6px; opacity:0.4; mix-blend-mode: screen; animation: drift 40s linear infinite;
+}
+@keyframes drift{ from{transform:translateY(0)} to{transform:translateY(-100px)} }
+
+.center{height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{background:rgba(15,20,35,0.6);padding:24px;border-radius:14px;box-shadow:0 10px 30px #0006;max-width:520px;width:100%;text-align:center}
+.lead{color:var(--muted);margin-bottom:12px}
+input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:inherit;margin:8px 0}
+.row{display:flex;gap:10px;align-items:center;justify-content:center}
+.btn{background:linear-gradient(90deg,var(--accent1),var(--accent2));border:none;color:#fff;padding:10px 14px;border-radius:999px;cursor:pointer;font-weight:700}
+.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:var(--muted);text-decoration:none}
+
+/* layout */
+.layout{display:flex;gap:18px;padding:20px;max-width:1200px;margin:18px auto}
+.left{flex:1;display:flex;flex-direction:column;gap:18px}
+.right{width:360px}
+
+/* panels */
+.panel{background:rgba(10,14,24,0.6);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+.game-panel{display:flex;flex-direction:column;gap:10px;align-items:center}
+.letter{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:46px;background:linear-gradient(180deg,#7b4bff,#3fb0ff);box-shadow:0 6px 18px rgba(63,176,255,0.12)}
+.timer{font-weight:700;font-size:20px;color:#fff;background:rgba(255,255,255,0.03);padding:6px 12px;border-radius:10px}
+.inputs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;width:100%}
+.inputs input{font-size:14px;text-align:center}
+
+/* chat */
+.chat-panel{display:flex;flex-direction:column;height:360px}
+.chatbox{flex:1;overflow:auto;padding:8px;display:flex;flex-direction:column;gap:8px}
+.msg{background:rgba(255,255,255,0.03);padding:8px;border-radius:10px;max-width:80%}
+.composer{display:flex;gap:8px;margin-top:8px}
+
+/* leaderboard */
+.leaderboard h3{margin:0 0 8px 0}
+.leaderboard-list{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.rank{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.03));box-shadow:0 6px 20px rgba(0,0,0,0.5)}
+.rank .meta{display:flex;gap:10px;align-items:center}
+.rank .pos{font-weight:800;width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.pos-1{background:linear-gradient(90deg,#ffd700,#ffb400);color:#000}
+.pos-2{background:linear-gradient(90deg,#c0c0c0,#a8a8a8);color:#000}
+.pos-3{background:linear-gradient(90deg,#cd7f32,#a65b2e);color:#000}
+.small{font-size:13px;color:var(--muted)}
+.cta{margin-top:10px;background:linear-gradient(90deg,#101226,#081022);padding:10px;border-radius:8px;text-align:center}
+
+/* admin small layout */
+.admin-wrap{display:flex;justify-content:center;padding:60px}
+.card.small{max-width:520px}
+
+/* responsive */
+@media (max-width:900px){ .layout{flex-direction:column}.right{width:100%} .inputs{grid-template-columns:1fr} }
